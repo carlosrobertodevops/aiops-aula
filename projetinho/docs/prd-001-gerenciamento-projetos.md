@@ -1,6 +1,6 @@
 ---
 prd_number: "001"
-status: rascunho
+status: em andamento
 priority: alta
 created: 2026-03-29
 issue: ""
@@ -264,11 +264,11 @@ Todos os componentes são novos. A infraestrutura Kubernetes já existe.
 
 **Funcionalidades:** US01, US02, US03
 
-- [ ] Configurar projeto Django, banco PostgreSQL e estrutura de deploy no Kubernetes (US01)
-- [ ] Implementar cadastro, login, logout e gestão de sessão (US01)
-- [ ] Implementar CRUD de times com atribuição de membros e gestores (US02)
-- [ ] Implementar CRUD de projetos vinculados a times com controle de visibilidade (US03)
-- [ ] Implementar sistema de permissões por papel (Admin/Gestor/Membro) (US01, US02, US03)
+- [x] Configurar projeto Django, banco PostgreSQL e estrutura de deploy no Kubernetes (US01)
+- [x] Implementar cadastro, login, logout e gestão de sessão (US01)
+- [x] Implementar CRUD de times com atribuição de membros e gestores (US02)
+- [x] Implementar CRUD de projetos vinculados a times com controle de visibilidade (US03)
+- [x] Implementar sistema de permissões por papel (Admin/Gestor/Membro) (US01, US02, US03)
 
 **Critério de conclusão:**
 - Condição: Usuários conseguem fazer login, ver seus times e projetos, com isolamento de acesso funcionando
@@ -376,3 +376,9 @@ Todos os componentes são novos. A infraestrutura Kubernetes já existe.
 - **2026-03-29:** Colunas fixas no kanban (Backlog, Em progresso, Em revisão, Concluído). Motivo: simplicidade e uniformidade entre times — prioridade explícita após fracasso do Jira.
 - **2026-03-29:** Notificações exclusivamente via Slack (sem email). Motivo: Slack já é o canal principal de comunicação da empresa.
 - **2026-03-29:** GitHub integration via webhooks com menção de task ID. Motivo: padrão amplamente adotado, sem necessidade de GitHub App complexo.
+- **2026-03-29:** Custom User model com AbstractUser (não AbstractBaseUser). Motivo: mantém compatibilidade com ecossistema Django (admin, decorators) com esforço mínimo.
+- **2026-03-29:** SQLite como banco de desenvolvimento (não PostgreSQL). Motivo: simplifica o setup local; migração para PostgreSQL será feita antes do deploy.
+- **2026-03-29:** Bootstrap 5 via CDN (sem build tools). Motivo: elimina pipeline de build frontend para sistema interno de ~40 usuários.
+- **2026-03-29:** TeamMembership como modelo intermediário (M2M explícito). Motivo: permite armazenar campo is_manager na relação e aplicar validações de gestor mínimo.
+- **2026-03-29:** Campo role no User model com choices (não django.contrib.auth.permissions). Motivo: 3 papéis fixos não justificam a complexidade de permissões granulares.
+- **2026-03-29:** Milestone 1 concluído — autenticação, times e projetos implementados com 59 testes automatizados passando.
