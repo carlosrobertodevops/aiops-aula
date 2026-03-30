@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Times — Kanban{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Times</h2>
+    {% if user.is_admin %}
+    <a href="{% url 'teams:team_create' %}" class="btn btn-primary">Novo Time</a>
+    {% endif %}
+</div>
+
+{% if teams %}
+<div class="row">
+    {% for team in teams %}
+    <div class="col-md-4 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ team.name }}</h5>
+                {% if team.description %}
+                <p class="card-text text-muted">{{ team.description }}</p>
+                {% endif %}
+                <a href="{% url 'teams:team_detail' team.pk %}" class="btn btn-sm btn-outline-primary">Ver Time</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">Você não pertence a nenhum time.</p>
+{% endif %}
+{% endblock %}

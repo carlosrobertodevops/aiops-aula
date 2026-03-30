@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.name }} — Kanban{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'teams:team_list' %}">Times</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'teams:team_detail' project.team.pk %}">{{ project.team.name }}</a></li>
+        <li class="breadcrumb-item active">{{ project.name }}</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2>{{ project.name }}</h2>
+        {% if project.status == 'archived' %}
+        <span class="badge bg-secondary">Arquivado</span>
+        {% endif %}
+    </div>
+    {% if can_manage %}
+    <div>
+        <a href="{% url 'projects:project_edit' project.pk %}" class="btn btn-outline-primary">Editar</a>
+        <form method="post" action="{% url 'projects:project_archive' project.pk %}" class="d-inline">
+            {% csrf_token %}
+            {% if project.status == 'active' %}
+            <button type="submit" class="btn btn-outline-warning">Arquivar</button>
+            {% else %}
+            <button type="submit" class="btn btn-outline-success">Reativar</button>
+            {% endif %}
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% if project.description %}
+<p>{{ project.description }}</p>
+{% endif %}
+
+<p class="text-muted">Time: <a href="{% url 'teams:team_detail' project.team.pk %}">{{ project.team.name }}</a></p>
+{% endblock %}

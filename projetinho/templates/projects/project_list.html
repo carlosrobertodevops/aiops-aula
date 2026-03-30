@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Projetos — {{ team.name }} — Kanban{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'teams:team_list' %}">Times</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'teams:team_detail' team.pk %}">{{ team.name }}</a></li>
+        <li class="breadcrumb-item active">Projetos</li>
+    </ol>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Projetos — {{ team.name }}</h2>
+    <div>
+        {% if show_archived %}
+        <a href="?archived=0" class="btn btn-outline-secondary btn-sm">Esconder Arquivados</a>
+        {% else %}
+        <a href="?archived=1" class="btn btn-outline-secondary btn-sm">Mostrar Arquivados</a>
+        {% endif %}
+    </div>
+</div>
+
+{% if projects %}
+<div class="list-group">
+    {% for project in projects %}
+    <a href="{% url 'projects:project_detail' project.pk %}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+        {{ project.name }}
+        {% if project.status == 'archived' %}
+        <span class="badge bg-secondary">Arquivado</span>
+        {% endif %}
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<p class="text-muted">Nenhum projeto neste time.</p>
+{% endif %}
+{% endblock %}
