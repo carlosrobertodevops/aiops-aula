@@ -18,14 +18,23 @@ Plataforma de gerenciamento de notícias construída com Node.js e Express, proj
 |----------|--------|-----------|
 | `DB_DATABASE` | `kubedevnews` | Nome do banco de dados |
 | `DB_USERNAME` | `kubedevnews` | Usuário do banco |
-| `DB_PASSWORD` | `Pg#123` | Senha do banco |
-| `DB_HOST` | `localhost` | Host do PostgreSQL |
+| `DB_PASSWORD` | `CHANGE_ME` | Senha do banco (defina no `.env`/Secret) |
+| `DB_HOST` | `localhost` | Host do PostgreSQL (em compose/k8s use `postgres`) |
 | `DB_PORT` | `5432` | Porta do PostgreSQL |
 | `DB_SSL_REQUIRE` | `false` | Habilitar SSL na conexão |
+
+Variáveis do container Postgres (compose/k8s):
+
+| Variável | Padrão |
+|----------|--------|
+| `POSTGRES_DB` | `kubedevnews` |
+| `POSTGRES_USER` | `kubedevnews` |
+| `POSTGRES_PASSWORD` | `CHANGE_ME` |
 
 ## Como Executar com Docker Compose
 
 ```bash
+cp .env.example .env
 docker compose up -d
 ```
 

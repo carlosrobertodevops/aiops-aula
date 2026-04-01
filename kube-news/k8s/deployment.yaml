@@ -6,10 +6,10 @@ type: Opaque
 stringData:
   DB_DATABASE: kubedevnews
   DB_USERNAME: kubedevnews
-  DB_PASSWORD: "Pg#123"
+  DB_PASSWORD: "CHANGE_ME"
   POSTGRES_DB: kubedevnews
   POSTGRES_USER: kubedevnews
-  POSTGRES_PASSWORD: "Pg#123"
+  POSTGRES_PASSWORD: "CHANGE_ME"
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
